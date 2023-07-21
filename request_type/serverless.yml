@@ -1,0 +1,20 @@
+service: serverless-authorizer
+
+frameworkVersion: ">=1.24.0 <2.0.0"
+
+provider: aws
+
+functions:
+  profile:
+    handler: index.profile
+    events:
+      - http:
+          path: profile
+          method: get
+          authorizer:
+            name: auth
+            resultTtlInSeconds: 300
+            type: request
+  auth:
+    handler: index.auth
+
